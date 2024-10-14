@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ef17c40684e47ab915961f13a4a45c, type: 3}
+  m_Name: Yellow_feathers
+  m_EditorClassIdentifier: 
+  updateStatics: 1
+  shellCount: 16
+  shellLength: 0.421
+  distanceAttenuation: 0.85
+  density: 23
+  noiseMin: 0.376
+  noiseMax: 0.93
+  thickness: 10
+  curvature: 0.66
+  displacementStrength: 0.185
+  shellColor: {r: 0.9339623, g: 0.60330224, b: 0.066082224, a: 1}
+  occlusionAttenuation: 0.62
+  occlusionBias: 0.384

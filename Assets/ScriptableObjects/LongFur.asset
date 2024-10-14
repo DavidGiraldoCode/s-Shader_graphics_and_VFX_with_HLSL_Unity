@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e751514bcd54c7e91baf10f524ac3e, type: 3}
+  m_Name: LongFur
+  m_EditorClassIdentifier: 
+  shellCount: 40
+  shellLength: 0.542
+  distanceAttenuation: 0.42
+  density: 269
+  noiseMin: 0
+  noiseMax: 0.759
+  thickness: 1.92
+  curvature: 6.87
+  displacementStrength: 0.217
+  shellColor: {r: 0.1536532, g: 0.764151, b: 0.032440357, a: 0}
+  occlusionAttenuation: 1.17
+  occlusionBias: 0.414
