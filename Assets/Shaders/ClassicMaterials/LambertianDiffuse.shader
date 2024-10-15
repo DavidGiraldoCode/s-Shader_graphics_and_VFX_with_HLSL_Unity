@@ -1,4 +1,4 @@
-Shader "David/Classic/LambertianDiffuse"
+Shader "David/Classic/LambertianDiffuse" //Lambertian Shading
 {
     Properties
     {
@@ -41,6 +41,7 @@ Shader "David/Classic/LambertianDiffuse"
             struct FragmentData
             {
                 float4 position     : SV_POSITION;
+                float2 uv           : TEXCOORD0;
                 float3 normal       : NORMAL;
                 half4  lightColor   : TEXCOORD1;
             };
@@ -51,32 +52,43 @@ Shader "David/Classic/LambertianDiffuse"
 
                 output.position = TransformObjectToHClip(input.vertex.xyz); // apply MVP matrix, from 3D world to the viewport
                 output.normal   = normalize(input.normal);                  // normalize normals (the interpolated ones)
-                //output.uv       = input.uv;                                 // Pass UV directly if we do not have a sampler
+                output.uv       = input.uv;                                 // Pass UV directly if we do not have a sampler
 
-                light = GetMainLight();
+                // Note that computing the light model on the vertex shader will yield
+                // facetaded shading, due to the interpolation
 
-                //diffuse coefficient
-                float4 surfaceColor = _BaseColor;
+                
 
-                // Recall that the dot product is a range [-1, 1]. 
-                float intensity = max(0, dot(light.direction, input.normal)); // < 0 ? 0 : dot(light.direction, input.normal) ;
-
-                float4 lambertianColor = float4(surfaceColor.xyz, 1) * float4(light.color.xyz, 1) * intensity;
-
-                float shadowIntensity = 0.05;
-                float4 ambientLightColor = float4(surfaceColor.xyz, 1) * shadowIntensity;
-
-                float4 ColorWithAmbient = lambertianColor + ambientLightColor;
-
-                output.lightColor = half4(ColorWithAmbient);
-
+                //output.lightColor = half4(colorWithAmbient);
                 return output;
             };
 
             float4 frag(FragmentData input) : SV_Target
             {
                 
-                return input.lightColor;
+                //return input.lightColor;
+
+            
+                light = GetMainLight();
+
+                //diffuse coefficient
+                float4 surfaceColor = _BaseColor;
+
+                // Recall that the dot product is a range [-1, 1].
+                float3 N = normalize(input.normal.xyz);
+
+                float intensity = max(0, dot(light.direction, N)); // < 0 ? 0 : dot(light.direction, input.normal) ;
+
+                float4 lambertianColor = float4(surfaceColor.xyz, 1) * float4(light.color.xyz, 1) * intensity;
+
+                float ambientLightIntensity = 0.05;
+                float4 ambientColor = surfaceColor * ambientLightIntensity;
+
+                float4 colorWithAmbient = lambertianColor + ambientColor;
+
+                return colorWithAmbient;
+
+                
             };
 
 
