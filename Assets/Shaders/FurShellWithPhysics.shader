@@ -120,7 +120,10 @@ Shader "Unlit/FurShell"
                 if (outsideThickness && _ShellIndex > 0) discard;
 
                 //Physically based illumination
-                float ndotl = dot(vert_OUTPUT.normal, _MainLightPosition.xyz) * 0.5f + 0.5f;
+                VertexNormalInputs normals = GetVertexNormalInputs(vert_OUTPUT.normal.xyz);
+                float3 worldNormal = normals.normalWS.xyz;
+
+                float ndotl = dot(worldNormal /*vert_OUTPUT.normal*/, _MainLightPosition.xyz) * 0.5f + 0.5f;
                 ndotl = ndotl * ndotl;
 
                 float ambientOcclusion = pow(abs(h), _Attenuation);
