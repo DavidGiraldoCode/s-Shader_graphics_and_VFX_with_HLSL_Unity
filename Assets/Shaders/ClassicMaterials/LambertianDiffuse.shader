@@ -9,6 +9,7 @@ Shader "David/Classic/LambertianDiffuse" //Lambertian Shading
     {
         _BaseColor ("Base Color", Color) = (1.0, 1.0, 1.0, 1.0)
         _AmbientLightColor ("Ambient Light Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        _AmbientCoefficient ("Ambient Coefficient", Float) = 0.05
         _Glossiness ("Glossiness", Float) = 100
     }
     SubShader
@@ -37,6 +38,7 @@ Shader "David/Classic/LambertianDiffuse" //Lambertian Shading
             CBUFFER_START(UnityPerMaterial)
                 float4 _BaseColor;
                 float4 _AmbientLightColor;
+                float _AmbientCoefficient;
                 float _Glossiness;
             CBUFFER_END
 
@@ -101,7 +103,7 @@ Shader "David/Classic/LambertianDiffuse" //Lambertian Shading
                 float4 lambertianColor = surfaceColor * lightColor * intensity;
                 
                 //ambient shading
-                float ambientLightIntensity = 0.05;
+                float ambientLightIntensity = _AmbientCoefficient;
                 float4 ambientColor = _AmbientLightColor;
                 float4 ambientShading = ambientColor * surfaceColor * ambientLightIntensity;
 
