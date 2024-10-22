@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ef17c40684e47ab915961f13a4a45c, type: 3}
-  m_Name: Green_feathers
+  m_Name: bunny_fur
   m_EditorClassIdentifier: 
   updateStatics: 1
   shellCount: 32
-  shellLength: 0.305
-  distanceAttenuation: 0.31
-  density: 40
-  noiseMin: 0.049
-  noiseMax: 0.788
-  thickness: 3.65
-  curvature: 5.42
-  displacementStrength: 0.155
-  shellColor: {r: 0.32374635, g: 0.9528302, b: 0.04045032, a: 1}
-  occlusionAttenuation: 1.17
-  occlusionBias: 0.664
+  shellLength: 0.049
+  distanceAttenuation: 1.45
+  density: 600
+  noiseMin: 0
+  noiseMax: 0.955
+  thickness: 0.91
+  curvature: 0.21
+  displacementStrength: 0
+  shellColor: {r: 0.745283, g: 0.425397, b: 0.14413491, a: 1}
+  occlusionAttenuation: 1.95
+  occlusionBias: 1
