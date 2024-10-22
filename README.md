@@ -1,22 +1,26 @@
 # Shader graphics and VFX - HLSL in Unity
 
-
-## Important references
-
-- [Unity HLSL](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl)
-
-- [HLSL variables functions](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderVariablesFunctions.hlsl)
+🚧 This is a work in progress, aiming to have a playground to explore computer graphics algorithms that focus on HLSL 🚧
 
 ## Some shading results
 
 <img width="924" alt="image" src="https://github.com/user-attachments/assets/a85ee0dc-6473-4c78-970f-af47dc96773e"> </br>
 <span>Unity default meshes and the Stanford Bunny shaded with the Blinn-Phong shading model using HSLS</span>
+<img width="924" alt="image" src="Assets/Images/kakapos.png"> </br>
+<span>Shell texture technique combined with my interpretation of the Cartoon Shade (Lake et al. 2000)</span>
+<img width="924" alt="image" src="Assets/Images/toon_shell.png"> </br>
+<span>Shell texture with and without toon shading </span>
 
-## Math
+## Backlog
+- [ ] Come up with a solution for Silhouette Edge Detection on shell texturing because the traditional one creates artifacts.
+- [ ] Expose parameters to change the threshold of the Cartoon shades
+- [ ] Expose parameters to change the color of the Silhouette
+
+## Material and light math
 
 1. **Lambert Diffuse (Diffuse Shading)**
   
-     $$I_{\text{diffuse}} = \text{max}(0, \mathbf{L} \cdot \mathbf{N}) \cdot C_{\text{light}} \cdot C_{\text{surface}}$$
+     $$I_{\text{diffuse}} = \text{max}(0, <\mathbf{L} \cdot \mathbf{N}>) * C_{\text{light}} * C_{\text{surface}}$$
 
      - $$\(\mathbf{L}\)$$ is the light direction.
      - $$\(\mathbf{N}\)$$ is the normalized surface normal in *world space*.
@@ -67,3 +71,11 @@ float4 ambientColor = surfaceColor * ambientLightIntensity;
 
 float4 colorWithAmbient = lambertianColor + ambientColor;
 ```
+## References
+
+[1] A. Lake, C. Marshall, M. Harris, and M. Blackstein, “Stylized rendering techniques for scalable real-time 3D animation,” in Proceedings of the 1st international symposium on Non-photorealistic animation and rendering, in NPAR ’00. New York, NY, USA: Association for Computing Machinery, Jun. 2000, pp. 13–20. doi: 10.1145/340916.340918.
+
+- [Unity HLSL](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl)
+
+- [HLSL variables functions](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderVariablesFunctions.hlsl)
+

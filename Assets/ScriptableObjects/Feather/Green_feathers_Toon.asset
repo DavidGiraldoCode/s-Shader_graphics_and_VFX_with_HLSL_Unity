@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ef17c40684e47ab915961f13a4a45c, type: 3}
-  m_Name: Green_feathers
+  m_Name: Green_feathers_Toon
   m_EditorClassIdentifier: 
   updateStatics: 1
   shellCount: 32
-  shellLength: 0.305
-  distanceAttenuation: 0.31
-  density: 40
-  noiseMin: 0.049
-  noiseMax: 0.788
-  thickness: 3.65
-  curvature: 5.42
-  displacementStrength: 0.155
-  shellColor: {r: 0.32374635, g: 0.9528302, b: 0.04045032, a: 1}
-  occlusionAttenuation: 1.17
-  occlusionBias: 0.664
+  shellLength: 0.335
+  distanceAttenuation: 0.78
+  density: 32
+  noiseMin: 0.01
+  noiseMax: 1
+  thickness: 9.06
+  curvature: 10
+  displacementStrength: 0.108
+  shellColor: {r: 0, g: 0.43566132, b: 1, a: 1}
+  occlusionAttenuation: 1.72
+  occlusionBias: 0.7
