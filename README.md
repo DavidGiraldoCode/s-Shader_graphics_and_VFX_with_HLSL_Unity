@@ -11,7 +11,7 @@
 
 <img width="924" alt="image" src="https://github.com/user-attachments/assets/a85ee0dc-6473-4c78-970f-af47dc96773e"> </br>
 <span>Unity default meshes and the Stanford Bunny shaded with the Blinn-Phong shading model using HSLS</span>
-
+<img width="924" alt="image" src="Assets/Images/kakapos.png"> </br>
 ## Math
 
 1. **Lambert Diffuse (Diffuse Shading)**
