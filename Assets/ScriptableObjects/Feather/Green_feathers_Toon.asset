@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Green_feathers_Toon
   m_EditorClassIdentifier: 
   updateStatics: 1
-  shellCount: 32
-  shellLength: 0.335
-  distanceAttenuation: 0.78
+  shellCount: 24
+  shellLength: 0.365
+  distanceAttenuation: 1.85
   density: 32
-  noiseMin: 0.01
+  noiseMin: 0.484
   noiseMax: 1
-  thickness: 9.06
-  curvature: 10
-  displacementStrength: 0.108
-  shellColor: {r: 0, g: 0.43566132, b: 1, a: 1}
-  occlusionAttenuation: 1.72
-  occlusionBias: 0.7
+  thickness: 10
+  curvature: 5.83
+  displacementStrength: 0.12
+  shellColor: {r: 0.010546438, g: 0.745283, b: 0.19171594, a: 1}
+  occlusionAttenuation: 0.36
+  occlusionBias: 0.229
+  hardness: 0.344
+  phongExponent: 4.7

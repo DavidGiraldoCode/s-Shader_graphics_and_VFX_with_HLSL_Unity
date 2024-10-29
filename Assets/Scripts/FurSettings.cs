@@ -32,12 +32,16 @@ public class FurSettings : ScriptableObject
     [Range(0.0f, 1.0f)]
     public float displacementStrength = 0.1f;
 
-    public Color shellColor;
 
+    [Header("Illumination")]
+    public Color shellColor;
     [Range(0.0f, 5.0f)]
     public float occlusionAttenuation = 1.0f;
-
     [Range(0.0f, 1.0f)]
     public float occlusionBias = 0.0f;
+    [Range(0.0f, 1.0f)]
+    public float hardness = 0.0f;
+    [Range(0.0f, 100.0f)]
+    public float phongExponent = 0.0f;
 
 }
