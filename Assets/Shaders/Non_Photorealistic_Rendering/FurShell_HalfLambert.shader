@@ -91,13 +91,12 @@ Shader "Unlit/FurShellToon"
 
             float4 frag(VertexOut vert_OUTPUT) : SV_Target
             {
+                //Setting the color from Unity C# brings inconsistencies. Build the color by components
                 _BaseColor.r = _ShellColor.r;
                 _BaseColor.g = _ShellColor.g;
                 _BaseColor.b = _ShellColor.b;
+                float4 surfaceColor = _BaseColor;
 
-                float4 surfaceColor = _BaseColor;//float4(1,1,1,1);//float4(_ShellColor.r, _ShellColor.g, _ShellColor.b, _ShellColor.a);
-                //The color set from Unity bring inconsistencies.
-                //Build the color by components
 
                 float2 newUV = vert_OUTPUT.uv * _Density;
                 newUV.y *= 8;
@@ -113,31 +112,12 @@ Shader "Unlit/FurShellToon"
                 float rand = lerp(_NoiseMin, _NoiseMax, hash(seed));
 
                 float h = shellIndex / shellCount;
-
                 int outsideThickness = (localDistanceFromCenter) > (_Thickness * (rand - h));
-
                 if (outsideThickness && _ShellIndex > 0) discard;
 
-                /*Physically based illumination
-                float ndotl = dot(vert_OUTPUT.normal, _MainLightPosition.xyz) * 0.5f + 0.5f;
-                ndotl = ndotl * ndotl;
-
-                float ambientOcclusion = pow(h, _Attenuation);
-                ambientOcclusion += _OcclusionBias;
-                ambientOcclusion = saturate(ambientOcclusion);
+                /*------------------  Physically based illumination  ----------- */
 
 
-                 // Simple color based on UV and layer
-                //float4 color = _BaseColor;
-
-                // Modify the alpha based on layer index to blend layers
-                //float shellHeight = (float)_ShellIndex / (float)_ShellCount;
-                //color.a *= (1.0 - shellHeight);
-                float4 ambinetLight = float4 (1, 1, 1, 1);
-                color *= ndotl * ambientOcclusion * ambinetLight;
-
-                return color;*/
-                //float4 color = _BaseColor;
                 // Modify the alpha based on layer index to blend layers
                 float shellHeight = (float)_ShellIndex / (float)_ShellCount;
                 surfaceColor.a *= (1.0 - shellHeight);
@@ -147,71 +127,48 @@ Shader "Unlit/FurShellToon"
                 float3 normalWS = GetVertexNormalInputs(vert_OUTPUT.normal).normalWS;
                 float lambertCoefficient = max(0, dot(light.direction, normalWS));
 
-                float halfLambert = dot(light.direction, normalWS);
-                //float _Hardness = 0.7;
-                halfLambert = halfLambert * _Hardness + 1 * _Hardness;
-
+                // Toon shading and HalfLambert
                 float steppedLambert = 0;
                 float dotLN = dot(light.direction, normalWS);
+                float halfLambert = dotLN * _Hardness + 1 * _Hardness;
 
-                
-                if(dotLN >= 0.5)
-                    steppedLambert = 1.0;
-                else if(dotLN >= 0.2)
+                if(dotLN >= 0.6)
+                    steppedLambert = halfLambert;//1.0;
+                else if(dotLN >= 0.1)
                     steppedLambert = 0.5;
                 else
-                    steppedLambert = halfLambert;//0.05;
-                
-
+                    steppedLambert = 0.05;
 
                 float4 diffuseColor = halfLambert * surfaceColor * lightColor;
 
                 //ambient shading
                 float ambientLightIntensity = _OcclusionBias;//_AmbientCoefficient;
-                float4 ambientColor = _BaseColor * 0.9;
+                float4 ambientColor = surfaceColor * 0.9;
                 float4 ambientShading = ambientColor * surfaceColor * ambientLightIntensity;
 
-                float4 colorWithAmbient = diffuseColor + ambientShading;
-
-
                 float3 cameraPosWS = GetCameraPositionWS();
+                // We compute the vector that determines the were the camera is.
                 // get the fragment in the viewport in worldspace
                 float3 fragmentPosWS = GetVertexPositionInputs(vert_OUTPUT.position.xyz).positionWS;
                 float3 eyeDirection = normalize(cameraPosWS - fragmentPosWS);
-                bool edge = dot(eyeDirection, normalWS) < 0.03; 
-                float4 edgeColor = float4(1,0,0,1);
-                //return float4(eyeDir.xyz,1);
-                // At every shell, is computting the edge
-                //return edge ?  edgeColor : diffuseColor ;
-
 
                 // Specular
-                // We compute the vector that determines the were the camera is.
-                //float3 eyeDirection = normalize(cameraPosWS - fragmentPosWS);
                 float3 lightDirection = normalize(light.direction);
                 float3 halfVector = normalize(eyeDirection + lightDirection);
                 float phongExponent = _PhongExponent;
-
-                //specular coefficient, or the specular color, of the surface.
-                float4 specularK = _BaseColor * 0.8;//;+ float4(0.4,0.4,0.4,1);
+                float4 specularK = surfaceColor * 0.8; //specular coefficient, or the specular color of the surface.
                 float4 specularIntensity = pow( max(0, dot(halfVector, normalWS) * (lambertCoefficient > 0) ), phongExponent);
                 float4 specularColor = specularK * specularIntensity;
 
-                float4 colorBlinnPhongShading =  diffuseColor + specularColor + ambientShading;
+                //Fake AmbientOcclusion                
+                float ambientOcclusion = pow(h, _Attenuation);
+                ambientOcclusion += _OcclusionBias;
+                ambientOcclusion = saturate(ambientOcclusion);
 
-                
-                //return diffuseColor;
-                //return colorWithAmbient;
+                float4 colorBlinnPhongShading =  diffuseColor + specularColor + ambientShading * ambientOcclusion;
+
+
                 return colorBlinnPhongShading;
-                // When trying the last shell, the fragment get too small, and tries to shade the little spot of fur
-                // if( _ShellIndex == (_ShellCount - 1))
-                // {
-                //     return edge ?  edgeColor : diffuseColor ;
-                // }
-                // else
-                // {
-                //     return  diffuseColor;
-                // }
             }
 
             ENDHLSL
