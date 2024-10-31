@@ -23,7 +23,7 @@ MonoBehaviour:
   curvature: 7.24
   displacementStrength: 0.12
   shellColor: {r: 0, g: 0.8773585, b: 0.16421145, a: 1}
-  occlusionAttenuation: 1.07
-  occlusionBias: 0.516
-  hardness: 0.401
-  phongExponent: 9.4
+  occlusionAttenuation: 1.45
+  occlusionBias: 0.201
+  hardness: 0.393
+  phongExponent: 9.1
