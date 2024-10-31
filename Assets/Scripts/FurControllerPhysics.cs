@@ -6,6 +6,8 @@ public class FurControllerPhysics : MonoBehaviour
     public Mesh characterMesh;
     public Shader shellFurShader;
     public FurSettings furSettings;
+
+    public float windFrequency = 0.0f;
     
     //private:
     private GameObject[] shells;
@@ -49,38 +51,38 @@ public class FurControllerPhysics : MonoBehaviour
         float windStrength = 5.0f;
     void Update()
     {
-        float velocity = 1.0f;
-        float GRAVITY = 10.0f;
+        // float velocity = 1.0f;
+        // float GRAVITY = 10.0f;
 
-        Vector3 direction = new Vector3(0, 0, 0);
-        Vector3 oppositeDirection = new Vector3(0, 0, 0);
+        // Vector3 direction = new Vector3(0, 0, 0);
+        // Vector3 oppositeDirection = new Vector3(0, 0, 0);
 
         
 
         // This determines the direction we are moving from wasd input. It's probably a better idea to use Unity's input system, since it handles
         // all possible input devices at once, but I did it the old fashioned way for simplicity.
         //TODO remove inputs
-        direction.x = Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
-        direction.y = Convert.ToInt32(Input.GetKey(KeyCode.W)) - Convert.ToInt32(Input.GetKey(KeyCode.S));
-        direction.z = Convert.ToInt32(Input.GetKey(KeyCode.Q)) - Convert.ToInt32(Input.GetKey(KeyCode.E));
+        // direction.x = Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
+        // direction.y = Convert.ToInt32(Input.GetKey(KeyCode.W)) - Convert.ToInt32(Input.GetKey(KeyCode.S));
+        // direction.z = Convert.ToInt32(Input.GetKey(KeyCode.Q)) - Convert.ToInt32(Input.GetKey(KeyCode.E));
 
         //Debug.Log(direction);
 
         // This moves the ball according the input direction
-        Vector3 currentPosition = this.transform.position;
-        direction.Normalize();
-        currentPosition += direction * velocity * Time.deltaTime;
-        this.transform.position = currentPosition;
+        //Vector3 currentPosition = this.transform.position;
+        //direction.Normalize();
+        //currentPosition += direction * velocity * Time.deltaTime;
+        //this.transform.position = currentPosition;
 
         // This changes the direction that the hair is going to point in, when we are not inputting any movements then we subtract the gravity vector
         // The gravity vector just being (0, -1, 0)
-        displacementDirection -= direction * Time.deltaTime * 10.0f;
-        //Debug.Log(displacementDirection);
+        // displacementDirection -= direction * Time.deltaTime * 10.0f;
+        // //Debug.Log(displacementDirection);
 
-        if (direction == Vector3.zero)
-            displacementDirection.y -= GRAVITY * Time.deltaTime;
+        // if (direction == Vector3.zero)
+        //     displacementDirection.y -= GRAVITY * Time.deltaTime;
 
-        if (displacementDirection.magnitude > 1) displacementDirection.Normalize();
+        // if (displacementDirection.magnitude > 1) displacementDirection.Normalize();
 
         // In order to avoid setting this variable on every single shell's material instance, we instead set this is as a global shader variable
         // That every shader will have access to, which sounds bad, because it kind of is, but just be aware of your global variable names and it's not a big deal.
@@ -88,7 +90,7 @@ public class FurControllerPhysics : MonoBehaviour
         Shader.SetGlobalVector("_ShellDirection", displacementDirection);
 
         //TODO moving wind
-        float windY = Mathf.Sin(Time.time * windStrength) * 2f;
+        float windY = Mathf.Sin(Time.time * windStrength) * windFrequency;
         //Debug.Log(windY);
         windDirection.y += windY * Time.deltaTime;
         windDirection.x += windY * Time.deltaTime;

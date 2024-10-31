@@ -61,6 +61,8 @@ Shader "Unlit/FurShellToon"
             float _Hardness;
             float _PhongExponent;
 
+            float3 _WindDirection;
+
             //For random value, implementation detail not important
             float hash(uint n) {
 				// integer hash copied from Hugo Elias
