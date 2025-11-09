@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Purple_feathers
   m_EditorClassIdentifier: 
   updateStatics: 1
-  shellCount: 16
-  shellLength: 0.421
-  distanceAttenuation: 0.85
-  density: 23
-  noiseMin: 0.376
-  noiseMax: 0.93
+  shellCount: 8
+  shellLength: 0.29
+  distanceAttenuation: 3
+  density: 1
+  noiseMin: 0.772
+  noiseMax: 1
   thickness: 10
-  curvature: 3.42
-  displacementStrength: 0.203
-  shellColor: {r: 0.29802927, g: 0.054901958, b: 0.9137255, a: 1}
-  occlusionAttenuation: 1.08
-  occlusionBias: 0.591
+  curvature: 2.39
+  displacementStrength: 0
+  shellColor: {r: 0.8207547, g: 0.43868095, b: 0.29036134, a: 1}
+  occlusionAttenuation: 2.21
+  occlusionBias: 0.218
+  hardness: 0.132
+  phongExponent: 20.5
